@@ -54,8 +54,9 @@ map <C-i> <action>(Forward)
 nnoremap <leader><leader> <C-Tab>
 
 
-
-
+# plugins 
+# IdeaVimExtension
+set keep-english-in-normal-and-restore-in-insert
 
 # Plugins
 Plug 'easymotion/vim-easymotion'

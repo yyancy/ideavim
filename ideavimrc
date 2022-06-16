@@ -1,31 +1,61 @@
+" ideavim's configurations
+
+" basic settings
 set number relativenumber
-set idearefactormode=keep
-set ideajoin
-set surround
-set easymotion
-let mapleader=" "
+set encoding=utf-8
+set clipboard+=unnamedplus
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
 set scrolloff=5
-
+let mapleader=" "
 " Do incremental searching.
 set incsearch
 set hlsearch
 " Don't use Ex mode, use Q for formatting.
 map Q gq
 
+" idea specific settings
+set idearefactormode=keep
+set ideajoin
 set ideajoin
 set ideaput
 set ideamarks
-set encoding=utf-8
 
-set clipboard+=unnamedplus
-
+" basic mappings
+nmap 0 _
 vmap <C-c> y
 vmap <C-v> p
 imap <C-v> <esc>pa
 map <S-C-v> p
+noremap > >>
+noremap < <<
+vnoremap > >gv
+vnoremap < <gv
 
+map <leader><cr> :noh<cr>
+
+
+" find and replace
+map <leader>fa <Action>(FindInPath)
+
+" navigation
+map <C-o> <action>(Back)
+map <C-i> <action>(Forward)
+
+map gi <Action>(GotoImplementation)
+map gy <Action>(GotoTypeDeclaration)
+map gr <Action>(ShowUsages)
+map [g <Action>(GotoPreviousError)
+map ]g <Action>(GotoNextError)
+map [[g <Action>(VcsShowPrevChangeMarker)
+map ]]g <Action>(VcsShowNextChangeMarker)
+map gO <Action>(FileStructurePopup)
+
+" refactor
+map <leader>rn <Action>(RenameElement)
+map <leader>rs <Action>(ChangeSignature)
+
+" debug
 " Map \r to the Reformat Code action
 :map \r <Action>(ReformatCode)
 
@@ -34,12 +64,6 @@ map <S-C-v> p
 
 " Map \b to toggle the breakpoint on the current line
 :map \b <Action>(ToggleLineBreakpoint)
-
-map <leader><cr> :noh<cr>
-nmap 0 _
-map <leader>gd <Action>(GotoImplementation)
-map [g <Action>(GotoPreviousError)
-map ]g <Action>(GotoNextError)
 " actions
 nmap <leader>h <action>(PreviousTab)
 nmap <leader>l <action>(NextTab)
@@ -49,8 +73,6 @@ nmap <leader>m <action>(Git.Menu)
 nmap <leader>s <action>(QuickChangeScheme)
 nmap <leader>/ <action>(ShowErrorDescription)
 nmap <leader>e <action>(GotoNextError)
-map <C-o> <action>(Back)
-map <C-i> <action>(Forward)
 nnoremap <leader><leader> <C-Tab>
 
 

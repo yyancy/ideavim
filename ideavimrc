@@ -42,9 +42,12 @@ map <leader>fa <Action>(FindInPath)
 map <C-o> <action>(Back)
 map <C-i> <action>(Forward)
 
-map gi <Action>(GotoImplementation)
+map gd <Action>(GotoDeclaration)zz
+map gi <Action>(GotoImplementation)zz
 map gy <Action>(GotoTypeDeclaration)
 map gr <Action>(ShowUsages)
+map gt <Action>(GotoSuperMethod)
+
 map [g <Action>(GotoPreviousError)
 map ]g <Action>(GotoNextError)
 map [[g <Action>(VcsShowPrevChangeMarker)

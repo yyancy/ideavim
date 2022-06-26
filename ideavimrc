@@ -81,6 +81,7 @@ nnoremap <leader><leader> <C-Tab>
 
 # plugins 
 # IdeaVimExtension
+set keep-english-in-normal 
 set keep-english-in-normal-and-restore-in-insert
 
 # Plugins

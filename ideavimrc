@@ -81,8 +81,11 @@ nnoremap <leader><leader> <C-Tab>
 
 # plugins 
 # IdeaVimExtension
-set keep-english-in-normal 
+" set keep-english-in-normal 
+" disable restoring input method according to the context
 set keep-english-in-normal-and-restore-in-insert
+let context_aware=0
+
 
 # Plugins
 Plug 'easymotion/vim-easymotion'

@@ -105,4 +105,7 @@ Plug 'tommcdo/vim-exchange'
 Plug 'machakann/vim-highlightedyank'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'vim-matchit'
+Plug 'vim-scripts/ReplaceWithRegister'
 
+map s gr
+map S grr

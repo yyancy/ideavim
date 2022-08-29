@@ -11,12 +11,14 @@ let mapleader=" "
 " Do incremental searching.
 set incsearch
 set hlsearch
+set ignorecase
+set smartcase
+set nowrapscan
 " Don't use Ex mode, use Q for formatting.
 map Q gq
 
 " idea specific settings
 set idearefactormode=keep
-set ideajoin
 set ideajoin
 set ideaput
 set ideamarks

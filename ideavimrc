@@ -13,7 +13,7 @@ set incsearch
 set hlsearch
 set ignorecase
 set smartcase
-set nowrapscan
+" set nowrapscan
 " Don't use Ex mode, use Q for formatting.
 map Q gq
 
@@ -35,10 +35,34 @@ vnoremap > >gv
 vnoremap < <gv
 
 map <leader><cr> :noh<cr>
+map <leader>q <Action>(CloseContent)
+map <leader><tab> <Action>(CloseAllToTheRight)
+map <leader><S-tab> <Action>(CloseAllEditorsButActive)
 
+map <c-h> <c-w><c-h>
+map <c-j> <c-w><c-j>
+map <c-k> <c-w><c-k>
+map <c-l> <c-w><c-l>
+
+imap <c-a> <c-o>_
+imap <c-e> <end>
+imap <c-f> <right>
+imap <c-b> <left>
+imap <a-f> <c-o>w
+imap <a-b> <c-o>b
+
+imap <c-h> <Action>(EditorBackSpace)
+imap <c-d> <del>
+" split windows
+map <leader>- <Action>(SplitHorizontally)
+map <leader>\| <Action>(SplitVertically)
+imap <C-]> <c-o>f<right>
 
 " find and replace
+map <leader>ff <Action>(GotoFile)
 map <leader>fa <Action>(FindInPath)
+map <leader>fh <Action>(RecentFiles)
+map <leader><c-f> <Action>(Find)
 
 " navigation
 map <C-o> <action>(Back)
@@ -46,9 +70,9 @@ map <C-i> <action>(Forward)
 
 map gd <Action>(GotoDeclaration)zz
 map gi <Action>(GotoImplementation)zz
-map gy <Action>(GotoTypeDeclaration)
-map gr <Action>(ShowUsages)
-map gt <Action>(GotoSuperMethod)
+map gy <Action>(GotoTypeDeclaration)zz
+map gr <Action>(ShowUsages)zz
+map gt <Action>(GotoSuperMethod)zz
 
 map [g <Action>(GotoPreviousError)
 map ]g <Action>(GotoNextError)
@@ -91,12 +115,12 @@ let context_aware=0
 
 # Plugins
 Plug 'easymotion/vim-easymotion'
-map f <Plug>(easymotion-bd-wl)
-map F <Plug>(easymotion-bd-fl)
+map f <Plug>(easymotion-bd-fl)
+map F <Plug>(easymotion-bd-wl)
 
 
-map t <Plug>(easymotion-bd-w)
-map T <Plug>(easymotion-bd-f2)
+map t <Plug>(easymotion-bd-f2)
+map T <Plug>(easymotion-bd-w)
 
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'

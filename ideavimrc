@@ -51,8 +51,11 @@ imap <c-b> <left>
 imap <a-f> <c-o>w
 imap <a-b> <c-o>b
 
+map <C-f> <action>(EmacsStyleIndent)
+imap <C-f> <action>(EmacsStyleIndent)
 imap <c-h> <Action>(EditorBackSpace)
 imap <c-d> <del>
+map i i<C-f>
 " split windows
 map <leader>- <Action>(SplitHorizontally)
 map <leader>\| <Action>(SplitVertically)
@@ -104,7 +107,6 @@ nmap <leader>/ <action>(ShowErrorDescription)
 nmap <leader>e <action>(GotoNextError)
 nnoremap <leader><leader> <C-Tab>
 
-
 # plugins 
 # IdeaVimExtension
 " set keep-english-in-normal 
@@ -115,12 +117,12 @@ let context_aware=0
 
 # Plugins
 Plug 'easymotion/vim-easymotion'
-map f <Plug>(easymotion-bd-fl)
-map F <Plug>(easymotion-bd-wl)
+" map f <Plug>(easymotion-bd-fl)
+" map F <Plug>(easymotion-lineforward)
 
 
-map t <Plug>(easymotion-bd-f2)
-map T <Plug>(easymotion-bd-w)
+map t <Plug>(easymotion-lineforward)
+map T <Plug>(easymotion-linebackward)
 
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'

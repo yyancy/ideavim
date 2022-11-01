@@ -13,6 +13,10 @@ set incsearch
 set hlsearch
 set ignorecase
 set smartcase
+" match between < and > characters
+set matchpairs+=<:>
+set matchpairs+==:;
+
 " set nowrapscan
 " Don't use Ex mode, use Q for formatting.
 map Q gq
@@ -22,6 +26,16 @@ set idearefactormode=keep
 set ideajoin
 set ideaput
 set ideamarks
+
+" edit ideavim config
+nnoremap <leader>T :e ~/.config/ideavim/ideavimrc<CR>
+nnoremap <leader>Z :source ~/.config/ideavim/ideavimrc<CR>
+" don't overwrite register when pasting over selection
+vnoremap p pgvy
+nmap =p :put *<CR>
+nmap =P :-1put *<CR>
+" not moving previous cursor position after yanking a region.
+" vmap y ygv<Esc>
 
 " basic mappings
 nmap 0 _
@@ -38,7 +52,7 @@ map <leader><cr> :noh<cr>
 map <leader>q <Action>(CloseContent)
 map <leader><tab> <Action>(CloseAllToTheRight)
 map <leader><S-tab> <Action>(CloseAllEditorsButActive)
-
+nmap <leader>? <Action>(GotoAction)<CR>
 map <c-h> <c-w><c-h>
 map <c-j> <c-w><c-j>
 map <c-k> <c-w><c-k>
@@ -51,11 +65,14 @@ imap <c-b> <left>
 imap <a-f> <c-o>w
 imap <a-b> <c-o>b
 
+" jump out brackets quickly
+inoremap <a-o> <Esc>/[)}"'\]>`]<CR>:nohl<CR>a
+inoremap <a-i> <Esc>?[({"'\[<`]<CR>:nohl<CR>a
 map <C-f> <action>(EmacsStyleIndent)
 imap <C-f> <action>(EmacsStyleIndent)
 imap <c-h> <Action>(EditorBackSpace)
 imap <c-d> <del>
-map i i<C-f>
+" map i i<C-f>
 " split windows
 map <leader>- <Action>(SplitHorizontally)
 map <leader>\| <Action>(SplitVertically)
@@ -79,14 +96,28 @@ map gt <Action>(GotoSuperMethod)zz
 
 map [g <Action>(GotoPreviousError)
 map ]g <Action>(GotoNextError)
-map [[g <Action>(VcsShowPrevChangeMarker)
-map ]]g <Action>(VcsShowNextChangeMarker)
+map [n <Action>(VcsShowPrevChangeMarker)
+map ]n <Action>(VcsShowNextChangeMarker)
 map gO <Action>(FileStructurePopup)
 
+map [<leader> <Action>(EditorStartNewLineBefore)
+map ]<leader> <Action>(EditorStartNewLine)
+
+map [e <Action>(MoveLineUp)
+map ]e <Action>(MoveLineDown)
 " refactor
 map <leader>rn <Action>(RenameElement)
 map <leader>rs <Action>(ChangeSignature)
 
+" convert words case
+map crs <Action>(StringManipulation.ToSnakeCase)
+map crm <Action>(StringManipulation.ToPascalCase)
+map crc <Action>(StringManipulation.ToCamelCase)
+map cru <Action>(StringManipulation.ToScreamingSnakeCase)
+map cr- <Action>(StringManipulation.ToKebabCase)
+map cr. <Action>(StringManipulation.ToDotCase)
+map cr<space> <Action>(osmedile.intellij.stringmanip.ToLowerCaseAction)
+map crt <Action>(StringManipulation.ToPascalCase)
 " debug
 " Map \r to the Reformat Code action
 :map \r <Action>(ReformatCode)
@@ -104,25 +135,34 @@ nmap <leader>i <action>(Generate)
 nmap <leader>m <action>(Git.Menu)
 nmap <leader>s <action>(QuickChangeScheme)
 nmap <leader>/ <action>(ShowErrorDescription)
-nmap <leader>e <action>(GotoNextError)
+nmap <leader>n <action>(GotoNextError)
 nnoremap <leader><leader> <C-Tab>
 
+nmap <leader>ro :action OptimizeImports<CR>
+nmap <leader>rG :action Generate<CR>
+nmap <leader>cl <Action>(OptimizeImports)<Action>(ReformatCode)<CR>
+nmap <leader>ar  :action ExternalSystem.ProjectRefreshAction<CR>
+nmap <leader>aa <Action>(GotoAction)<CR>
+imap <a-p> <c-o><Action>(ParameterInfo)i
+
+map gh <Action>(QuickJavaDoc)
 # plugins 
 # IdeaVimExtension
 " set keep-english-in-normal 
 " disable restoring input method according to the context
 set keep-english-in-normal-and-restore-in-insert
 let context_aware=0
-
-
+map <leader>tw :s/\//\\\\/g<CR>
+map <leader>tu :s/\\\\/\//g<CR>
+"南通街
 # Plugins
 Plug 'easymotion/vim-easymotion'
 " map f <Plug>(easymotion-bd-fl)
 " map F <Plug>(easymotion-lineforward)
 
 
-map t <Plug>(easymotion-lineforward)
-map T <Plug>(easymotion-linebackward)
+map f <Plug>(easymotion-lineforward)
+map F <Plug>(easymotion-linebackward)
 
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
@@ -130,10 +170,12 @@ Plug 'vim-scripts/argtextobj.vim'
 let g:argtextobj_pairs="(:),{:},<:>"
 
 Plug 'tommcdo/vim-exchange'
-Plug 'machakann/vim-highlightedyank'
+" Plug 'machakann/vim-highlightedyank'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'vim-matchit'
 Plug 'vim-scripts/ReplaceWithRegister'
+
+Plug 'vim-commentary'
 
 map s gr
 map S grr

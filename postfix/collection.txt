@@ -1,0 +1,7 @@
+.oo : print to console
+    ANY -> System.out.println($expr$)
+
+.ts : print each element
+    java.util.List -> $expr$.forEach(System.out::println)
+    java.util.Map -> $expr$.forEach((k,v) -> System.out.println(k+"= "+v))
+    java.lang.Iterable -> $expr$.forEach(System.out::println)

@@ -3,7 +3,7 @@
 " basic settings
 set number relativenumber
 set encoding=utf-8
-set clipboard+=unnamedplus
+set clipboard+=unnamed
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
 set scrolloff=5
@@ -35,11 +35,11 @@ vnoremap p pgvy
 nmap =p :put *<CR>
 nmap =P :-1put *<CR>
 " not moving previous cursor position after yanking a region.
-" vmap y ygv<Esc>
+vmap y ygv<Esc>
 
 " basic mappings
 nmap 0 _
-vmap <C-c> y
+vnoremap <C-c> y
 vmap <C-v> p
 imap <C-v> <esc>pa
 map <S-C-v> p
@@ -47,6 +47,10 @@ noremap > >>
 noremap < <<
 vnoremap > >gv
 vnoremap < <gv
+
+" remove system clipboard setting otherwise the multiple cursor canot work.
+map <leader>ocb :set cb-=unnamed<CR>
+map <leader>ocB :set cb+=unnamed<CR>
 
 map <leader><cr> :noh<cr>
 map <leader>q <Action>(CloseContent)
@@ -68,8 +72,8 @@ imap <a-b> <c-o>b
 " jump out brackets quickly
 inoremap <a-o> <Esc>/[)}"'\]>`]<CR>:nohl<CR>a
 inoremap <a-i> <Esc>?[({"'\[<`]<CR>:nohl<CR>a
-map <C-f> <action>(EmacsStyleIndent)
-imap <C-f> <action>(EmacsStyleIndent)
+map <C-t> <action>(EmacsStyleIndent)
+imap <C-t> <action>(EmacsStyleIndent)
 imap <c-h> <Action>(EditorBackSpace)
 imap <c-d> <del>
 " map i i<C-f>
@@ -80,6 +84,7 @@ imap <C-]> <c-o>f<right>
 
 " find and replace
 map <leader>ff <Action>(GotoFile)
+map <leader>fc <Action>(GotoClass)
 map <leader>fa <Action>(FindInPath)
 map <leader>fh <Action>(RecentFiles)
 map <leader><c-f> <Action>(Find)
@@ -136,6 +141,7 @@ nmap <leader>m <action>(Git.Menu)
 nmap <leader>s <action>(QuickChangeScheme)
 nmap <leader>/ <action>(ShowErrorDescription)
 nmap <leader>n <action>(GotoNextError)
+nmap <leader>p <action>(GotoPreviousError)
 nnoremap <leader><leader> <C-Tab>
 
 nmap <leader>ro :action OptimizeImports<CR>
@@ -145,6 +151,12 @@ nmap <leader>ar  :action ExternalSystem.ProjectRefreshAction<CR>
 nmap <leader>aa <Action>(GotoAction)<CR>
 imap <a-p> <c-o><Action>(ParameterInfo)i
 
+nmap <leader>gi <Action>(ImplementMethods)
+nmap <leader>go <Action>(OverrideMethods)
+nmap [m <Action>(MethodUp)
+nmap ]m <Action>(MethodDown)
+nmap [[ <Action>(EditorCodeBlockStart)
+nmap ]] <Action>(EditorCodeBlockEnd)
 map gh <Action>(QuickJavaDoc)
 # plugins 
 # IdeaVimExtension
@@ -161,8 +173,8 @@ Plug 'easymotion/vim-easymotion'
 " map F <Plug>(easymotion-lineforward)
 
 
-map f <Plug>(easymotion-lineforward)
-map F <Plug>(easymotion-linebackward)
+nnoremap f <Plug>(easymotion-lineforward)
+nnoremap F <Plug>(easymotion-linebackward)
 
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
@@ -170,7 +182,7 @@ Plug 'vim-scripts/argtextobj.vim'
 let g:argtextobj_pairs="(:),{:},<:>"
 
 Plug 'tommcdo/vim-exchange'
-" Plug 'machakann/vim-highlightedyank'
+Plug 'machakann/vim-highlightedyank'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'vim-matchit'
 Plug 'vim-scripts/ReplaceWithRegister'
@@ -179,3 +191,7 @@ Plug 'vim-commentary'
 
 map s gr
 map S grr
+
+Plug 'preservim/nerdtree'
+
+eval set nohl

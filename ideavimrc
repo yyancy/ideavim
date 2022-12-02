@@ -39,6 +39,7 @@ vmap y ygv<Esc>
 
 " basic mappings
 nmap 0 _
+nmap Y y$
 vnoremap <C-c> y
 vmap <C-v> p
 imap <C-v> <esc>pa
@@ -54,7 +55,7 @@ map <leader>ocB :set cb+=unnamed<CR>
 
 map <leader><cr> :noh<cr>
 map <leader>q <Action>(CloseContent)
-map <leader><tab> <Action>(CloseAllToTheRight)
+" map <leader><tab> <Action>(CloseAllToTheRight)
 map <leader><S-tab> <Action>(CloseAllEditorsButActive)
 nmap <leader>? <Action>(GotoAction)<CR>
 map <c-h> <c-w><c-h>
@@ -63,11 +64,15 @@ map <c-k> <c-w><c-k>
 map <c-l> <c-w><c-l>
 
 imap <c-a> <c-o>_
+imap <c-k> <c-o>C
 imap <c-e> <end>
 imap <c-f> <right>
 imap <c-b> <left>
 imap <a-f> <c-o>w
 imap <a-b> <c-o>b
+
+nnoremap cn cgn
+
 
 " jump out brackets quickly
 inoremap <a-o> <Esc>/[)}"'\]>`]<CR>:nohl<CR>a
@@ -83,12 +88,12 @@ map <leader>\| <Action>(SplitVertically)
 imap <C-]> <c-o>f<right>
 
 " find and replace
-map <leader>ff <Action>(GotoFile)
-map <leader>fc <Action>(GotoClass)
+map <leader>ff <Action>(GotoClass)
 map <leader>fa <Action>(FindInPath)
-map <leader>fh <Action>(RecentFiles)
+map <leader>bb <Action>(RecentFiles)
 map <leader><c-f> <Action>(Find)
 
+nmap <leader>fc <Action>(NewClass)
 " navigation
 map <C-o> <action>(Back)
 map <C-i> <action>(Forward)
@@ -113,25 +118,36 @@ map ]e <Action>(MoveLineDown)
 " refactor
 map <leader>rn <Action>(RenameElement)
 map <leader>rs <Action>(ChangeSignature)
+map <leader>rem <Action>(ExtractMethod)
+map <leader>rev <Action>(IntroduceVariable)
+map <leader>rec <Action>(IntroduceConstant)
+map <leader>ref <Action>(IntroduceField)
 
 " convert words case
-map crs <Action>(StringManipulation.ToSnakeCase)
-map crm <Action>(StringManipulation.ToPascalCase)
-map crc <Action>(StringManipulation.ToCamelCase)
-map cru <Action>(StringManipulation.ToScreamingSnakeCase)
-map cr- <Action>(StringManipulation.ToKebabCase)
-map cr. <Action>(StringManipulation.ToDotCase)
-map cr<space> <Action>(osmedile.intellij.stringmanip.ToLowerCaseAction)
-map crt <Action>(StringManipulation.ToPascalCase)
+nmap crs <Action>(StringManipulation.ToSnakeCase)
+nmap crm <Action>(StringManipulation.ToPascalCase)
+nmap crc <Action>(StringManipulation.ToCamelCase)
+nmap cru <Action>(StringManipulation.ToScreamingSnakeCase)
+nmap cr- <Action>(StringManipulation.ToKebabCase)
+nmap cr. <Action>(StringManipulation.ToDotCase)
+nmap cr<space> <Action>(osmedile.intellij.stringmanip.ToLowerCaseAction)
+nmap crt <Action>(StringManipulation.ToPascalCase)
 " debug
 " Map \r to the Reformat Code action
-:map \r <Action>(ReformatCode)
+map \r <Action>(ReformatCode)
 
 " Map <leader>d to start debug
-:map <leader>d <Action>(Debug)
+map <leader>d <Action>(Debug)
 
 " Map \b to toggle the breakpoint on the current line
-:map \b <Action>(ToggleLineBreakpoint)
+nmap ,b <Action>(ToggleLineBreakpoint)
+nmap ,c <Action>(Resume)
+nmap ,C <Action>(ResumeRunToCursor)
+
+nmap ,i <Action>(StepInto)
+nmap ,s <Action>(StepOver)
+nmap <leader><tab> <C-6>
+
 " actions
 nmap <leader>h <action>(PreviousTab)
 nmap <leader>l <action>(NextTab)
@@ -158,8 +174,14 @@ nmap ]m <Action>(MethodDown)
 nmap [[ <Action>(EditorCodeBlockStart)
 nmap ]] <Action>(EditorCodeBlockEnd)
 map gh <Action>(QuickJavaDoc)
-# plugins 
-# IdeaVimExtension
+
+nmap <leader>gl <Action>(Vcs.UpdateProject)
+nmap <leader>ga <Action>(CheckinProject)
+nmap <leader>gp <Action>(Vcs.Push)
+nmap g; <Action>(JumpToLastChange)
+nmap g, <Action>(JumpToNextChange)
+" plugins
+" IdeaVimExtension
 " set keep-english-in-normal 
 " disable restoring input method according to the context
 set keep-english-in-normal-and-restore-in-insert
@@ -167,14 +189,14 @@ let context_aware=0
 map <leader>tw :s/\//\\\\/g<CR>
 map <leader>tu :s/\\\\/\//g<CR>
 "南通街
-# Plugins
+" Plugins
 Plug 'easymotion/vim-easymotion'
 " map f <Plug>(easymotion-bd-fl)
 " map F <Plug>(easymotion-lineforward)
 
 
-nnoremap f <Plug>(easymotion-lineforward)
-nnoremap F <Plug>(easymotion-linebackward)
+nmap f <Plug>(easymotion-lineforward)
+nmap F <Plug>(easymotion-linebackward)
 
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
@@ -194,4 +216,10 @@ map S grr
 
 Plug 'preservim/nerdtree'
 
-eval set nohl
+eval nohl
+
+" +admin+
+vnoremap <silent> i+ :<C-u>normal! T+vt+<CR>
+vnoremap <silent> ib :<C-u>normal! ?[({"'\[<`]<CR><right>v/[)}"'\]>`]<CR><left><left><ESC>:nohl<CR>gv
+onoremap <silent> i+ :<C-u>normal! ggVG<CR>
+

@@ -38,7 +38,7 @@ nmap =P :-1put *<CR>
 vmap y ygv<Esc>
 
 " basic mappings
-nmap 0 _
+map 0 _
 nmap Y y$
 vnoremap <C-c> y
 vmap <C-v> p
@@ -54,7 +54,9 @@ map <leader>ocb :set cb-=unnamed<CR>
 map <leader>ocB :set cb+=unnamed<CR>
 
 map <leader><cr> :noh<cr>
-map <leader>q <Action>(CloseContent)
+map <leader>qq <Action>(CloseContent)
+map <leader>qa <Action>(CloseAllEditorsButActive)
+
 " map <leader><tab> <Action>(CloseAllToTheRight)
 map <leader><S-tab> <Action>(CloseAllEditorsButActive)
 nmap <leader>? <Action>(GotoAction)<CR>
@@ -108,7 +110,8 @@ map [g <Action>(GotoPreviousError)
 map ]g <Action>(GotoNextError)
 map [n <Action>(VcsShowPrevChangeMarker)
 map ]n <Action>(VcsShowNextChangeMarker)
-map gO <Action>(FileStructurePopup)
+map go <Action>(FileStructurePopup)
+map gO <Action>(GotoSymbol)
 
 map [<leader> <Action>(EditorStartNewLineBefore)
 map ]<leader> <Action>(EditorStartNewLine)
@@ -165,6 +168,8 @@ nmap <leader>rG :action Generate<CR>
 nmap <leader>cl <Action>(OptimizeImports)<Action>(ReformatCode)<CR>
 nmap <leader>ar  :action ExternalSystem.ProjectRefreshAction<CR>
 nmap <leader>aa <Action>(GotoAction)<CR>
+nmap <leader>au <Action>(GotoUrlAction)<CR>
+
 imap <a-p> <c-o><Action>(ParameterInfo)i
 
 nmap <leader>gi <Action>(ImplementMethods)
@@ -180,9 +185,14 @@ nmap <leader>ga <Action>(CheckinProject)
 nmap <leader>gp <Action>(Vcs.Push)
 nmap g; <Action>(JumpToLastChange)
 nmap g, <Action>(JumpToNextChange)
+
+
+imap <a-,> <Action>(CodeCompletion)
+imap <c-a-0> <Action>(xyz.zono.plugin.InputSequenceAction)
+
 " plugins
 " IdeaVimExtension
-" set keep-english-in-normal 
+" set keep-english-in-normal
 " disable restoring input method according to the context
 set keep-english-in-normal-and-restore-in-insert
 let context_aware=0
@@ -195,8 +205,8 @@ Plug 'easymotion/vim-easymotion'
 " map F <Plug>(easymotion-lineforward)
 
 
-nmap f <Plug>(easymotion-lineforward)
-nmap F <Plug>(easymotion-linebackward)
+" nmap f <Plug>(easymotion-lineforward)
+" nmap F <Plug>(easymotion-linebackward)
 
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'

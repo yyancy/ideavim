@@ -7,6 +7,8 @@ set clipboard+=unnamed
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
 set scrolloff=5
+set sidescroll=4
+set sidescrolloff=15
 let mapleader=" "
 " Do incremental searching.
 set incsearch
@@ -17,6 +19,7 @@ set smartcase
 set matchpairs+=<:>
 set matchpairs+==:;
 
+set showcmd
 " set nowrapscan
 " Don't use Ex mode, use Q for formatting.
 map Q gq
@@ -26,6 +29,7 @@ set idearefactormode=keep
 set ideajoin
 set ideaput
 set ideamarks
+set gdefault " set g flag for substitute
 
 " edit ideavim config
 nnoremap <leader>T :e ~/.config/ideavim/ideavimrc<CR>
@@ -140,15 +144,17 @@ nmap crt <Action>(StringManipulation.ToPascalCase)
 map \r <Action>(ReformatCode)
 
 " Map <leader>d to start debug
-map <leader>d <Action>(Debug)
+map <leader>rr <Action>(Run)
+map <leader>rd <Action>(Debug)
 
 " Map \b to toggle the breakpoint on the current line
-nmap ,b <Action>(ToggleLineBreakpoint)
-nmap ,c <Action>(Resume)
-nmap ,C <Action>(ResumeRunToCursor)
+nmap <leader>db <Action>(ToggleLineBreakpoint)
+nmap <leader>dc <Action>(Resume)
+nmap <leader>dC <Action>(ResumeRunToCursor)
+nmap <leader>de <Action>(QuickEvaluateExpression)
+nmap <leader>di <Action>(StepInto)
+nmap <leader>ds <Action>(StepOver)
 
-nmap ,i <Action>(StepInto)
-nmap ,s <Action>(StepOver)
 nmap <leader><tab> <C-6>
 
 " actions
@@ -225,6 +231,10 @@ map s gr
 map S grr
 
 Plug 'preservim/nerdtree'
+set vim-paragraph-motion
+set quickscope
+set textobj-entire
+
 
 eval nohl
 
@@ -232,4 +242,6 @@ eval nohl
 vnoremap <silent> i+ :<C-u>normal! T+vt+<CR>
 vnoremap <silent> ib :<C-u>normal! ?[({"'\[<`]<CR><right>v/[)}"'\]>`]<CR><left><left><ESC>:nohl<CR>gv
 onoremap <silent> i+ :<C-u>normal! ggVG<CR>
+
+
 

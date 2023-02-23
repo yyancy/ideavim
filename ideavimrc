@@ -175,6 +175,7 @@ nmap <leader>cl <Action>(OptimizeImports)<Action>(ReformatCode)<CR>
 nmap <leader>ar  :action ExternalSystem.ProjectRefreshAction<CR>
 nmap <leader>aa <Action>(GotoAction)<CR>
 nmap <leader>au <Action>(GotoUrlAction)<CR>
+nmap <leader>fs <Action>(GoToRequestMapping)<CR>
 
 imap <a-p> <c-o><Action>(ParameterInfo)i
 

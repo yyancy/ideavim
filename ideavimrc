@@ -33,7 +33,7 @@ set gdefault " set g flag for substitute
 
 " edit ideavim config
 nnoremap <leader>T :e ~/.config/ideavim/ideavimrc<CR>
-nnoremap <leader>Z :source ~/.config/ideavim/ideavimrc<CR>
+nnoremap <leader>Z :action IdeaVim.ReloadVimRc.reload<CR>
 " don't overwrite register when pasting over selection
 vnoremap p pgvy
 nmap =p :put *<CR>
@@ -53,7 +53,7 @@ noremap < <<
 vnoremap > >gv
 vnoremap < <gv
 
-" remove system clipboard setting otherwise the multiple cursor canot work.
+" remove system clipboard setting otherwise the multiple cursor cannot work.
 map <leader>ocb :set cb-=unnamed<CR>
 map <leader>ocB :set cb+=unnamed<CR>
 
@@ -74,11 +74,33 @@ imap <c-k> <c-o>C
 imap <c-e> <end>
 imap <c-f> <right>
 imap <c-b> <left>
-imap <a-f> <c-o>w
+imap <a-f> <c-o>e<c-f>
 imap <a-b> <c-o>b
 
-nnoremap cn cgn
+" Make K the logical opposite of J.
+nnoremap gK a<CR><Esc>k$
+" Q plays back q macro.
+nnoremap Q @q
 
+nnoremap cn cgn
+" Easier substitution.
+nnoremap <Leader>, :%s/
+xnoremap <Leader>, :s/
+" Split line on a comma.
+nnoremap \ f,a<CR><Esc>^
+" Split function arguments or list members into their own lines.
+nnoremap <Leader>\ mq^f,`qv%J`qa<CR><Esc>k$%i<CR><Esc>k:s/, *\($\)\@!/,\r<CR>:noh<CR>`qv%=`q
+
+
+" Type a delimiter for splitting the line into separate lines.
+nnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
+xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
+
+map <c-w>m <Action>(MaximizeEditorInSplit)
+map <c-w>+ <Action>(StretchSplitToTop)
+map <c-w>- <Action>(StretchSplitToBottom)
+map <c-w>< <Action>(StretchSplitToLeft)
+map <c-w>> <Action>(StretchSplitToRight)
 
 " jump out brackets quickly
 inoremap <a-o> <Esc>/[)}"'\]>`]<CR>:nohl<CR>a
@@ -97,7 +119,8 @@ imap <C-]> <c-o>f<right>
 map <leader>ff <Action>(GotoClass)
 map <leader>fa <Action>(FindInPath)
 map <leader>bb <Action>(RecentFiles)
-map <leader><c-f> <Action>(Find)
+map <leader>gf <Action>(Find)
+map <leader>gr <Action>(Replace)
 
 nmap <leader>fc <Action>(NewClass)
 " navigation
@@ -114,6 +137,8 @@ map [g <Action>(GotoPreviousError)
 map ]g <Action>(GotoNextError)
 map [n <Action>(VcsShowPrevChangeMarker)
 map ]n <Action>(VcsShowNextChangeMarker)
+map [c <Action>(VcsShowPrevChangeMarker)
+map ]c <Action>(VcsShowNextChangeMarker)
 map go <Action>(FileStructurePopup)
 map gO <Action>(GotoSymbol)
 
@@ -131,14 +156,14 @@ map <leader>rec <Action>(IntroduceConstant)
 map <leader>ref <Action>(IntroduceField)
 
 " convert words case
-nmap crs <Action>(StringManipulation.ToSnakeCase)
-nmap crm <Action>(StringManipulation.ToPascalCase)
-nmap crc <Action>(StringManipulation.ToCamelCase)
-nmap cru <Action>(StringManipulation.ToScreamingSnakeCase)
-nmap cr- <Action>(StringManipulation.ToKebabCase)
-nmap cr. <Action>(StringManipulation.ToDotCase)
-nmap cr<space> <Action>(osmedile.intellij.stringmanip.ToLowerCaseAction)
-nmap crt <Action>(StringManipulation.ToPascalCase)
+map crs <Action>(StringManipulation.ToSnakeCase)<esc>
+map crm <Action>(StringManipulation.ToPascalCase)<esc>
+map crc <Action>(StringManipulation.ToCamelCase)<esc>
+map cru <Action>(StringManipulation.ToScreamingSnakeCase)<esc>
+map cr- <Action>(StringManipulation.ToKebabCase)<esc>
+map cr. <Action>(StringManipulation.ToDotCase)<esc>
+map cr<space> <Action>(osmedile.intellij.stringmanip.ToLowerCaseAction)<esc>
+map crt <Action>(StringManipulation.ToPascalCase)<esc>
 " debug
 " Map \r to the Reformat Code action
 map \r <Action>(ReformatCode)
@@ -158,6 +183,8 @@ nmap <leader>ds <Action>(StepOver)
 nmap <leader><tab> <C-6>
 
 " actions
+nmap <leader>tm <action>(MoveEditorToOppositeTabGroup)
+nmap <leader>tc <action>(Unsplit)
 nmap <leader>h <action>(PreviousTab)
 nmap <leader>l <action>(NextTab)
 nmap <leader>bd <action>(CloseEditor)
@@ -190,12 +217,50 @@ map gh <Action>(QuickJavaDoc)
 nmap <leader>gl <Action>(Vcs.UpdateProject)
 nmap <leader>ga <Action>(CheckinProject)
 nmap <leader>gp <Action>(Vcs.Push)
+nmap <leader>gr <Action>(Vcs.RollbackChangedLines)
+
 nmap g; <Action>(JumpToLastChange)
 nmap g, <Action>(JumpToNextChange)
 
+" Toggle case and start typing. E.g. `<leader>iget`: `property` -> `getProperty`
+nmap <leader>i ~hi
+" Remove selection and toggle case. E.g. `v2l<leader>u`: `getProperty` -> `property`
+vmap <leader>u d~h
+
+" These don't work in Rider, annoyingly. Try HighlightUsagesInFile (see <leader>h below)
+nmap ]q <Action>(GotoNextElementUnderCaretUsage)
+nmap [q <Action>(GotoPrevElementUnderCaretUsage)
 
 imap <a-,> <Action>(CodeCompletion)
 imap <c-a-0> <Action>(xyz.zono.plugin.InputSequenceAction)
+
+function! Invert(calledFromVisual)
+  let antonyms = ['true', 'false', 'after', 'before', 'start', 'end', 'left', 'right', 'first', 'last',
+                 \'True', 'False', 'After', 'Before', 'Start', 'End', 'Left', 'Right', 'First', 'Last']
+
+  if a:calledFromVisual
+    normal gv"wy
+  else
+    normal "wyiw
+  endif
+  let wordUnderCaret = @w
+
+  let eraseWord = a:calledFromVisual ? 'gvc' : 'ciw'
+  let count = 0
+  while (count < len(antonyms))
+    if (antonyms[count] ==# wordUnderCaret)
+      let antonym = (count % 2 ==? 0) ? antonyms[count + 1] : antonyms[count - 1]
+      execute 'normal ' .. eraseWord .. antonym
+      break
+    endif
+    let count += 1
+  endwhile
+endfunction
+
+nnoremap gs :call Invert(0)<CR>
+vnoremap gs :<C-u>call Invert(1)<CR>
+
+
 
 " plugins
 " IdeaVimExtension

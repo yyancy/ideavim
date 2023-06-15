@@ -53,6 +53,11 @@ noremap < <<
 vnoremap > >gv
 vnoremap < <gv
 
+nnoremap ` ~
+nnoremap ~ `
+
+
+
 " remove system clipboard setting otherwise the multiple cursor cannot work.
 map <leader>ocb :set cb-=unnamed<CR>
 map <leader>ocB :set cb+=unnamed<CR>
@@ -234,9 +239,10 @@ nmap [q <Action>(GotoPrevElementUnderCaretUsage)
 imap <a-,> <Action>(CodeCompletion)
 imap <c-a-0> <Action>(xyz.zono.plugin.InputSequenceAction)
 
+
 function! Invert(calledFromVisual)
-  let antonyms = ['true', 'false', 'after', 'before', 'start', 'end', 'left', 'right', 'first', 'last',
-                 \'True', 'False', 'After', 'Before', 'Start', 'End', 'Left', 'Right', 'First', 'Last']
+  let antonyms = ['true', 'false', 'after', 'before', 'start', 'end', 'left', 'right', 'first', 'last', \
+                  'True', 'False', 'After', 'Before', 'Start', 'End', 'Left', 'Right', 'First', 'Last']
 
   if a:calledFromVisual
     normal gv"wy
@@ -279,7 +285,7 @@ Plug 'easymotion/vim-easymotion'
 
 " nmap f <Plug>(easymotion-lineforward)
 " nmap F <Plug>(easymotion-linebackward)
-
+" b B r a repents ) } ] >
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-scripts/argtextobj.vim'
@@ -294,7 +300,7 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'vim-commentary'
 
 map s gr
-map S grr
+map S gr$
 
 Plug 'preservim/nerdtree'
 set vim-paragraph-motion

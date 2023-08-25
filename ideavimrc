@@ -7,8 +7,8 @@ set clipboard+=unnamed
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
 set scrolloff=5
-set sidescroll=4
-set sidescrolloff=15
+set sidescroll=10
+set sidescrolloff=45
 let mapleader=" "
 " Do incremental searching.
 set incsearch
@@ -50,6 +50,10 @@ imap <C-v> <esc>pa
 map <S-C-v> p
 noremap > >>
 noremap < <<
+
+nnoremap zl zL
+nnoremap zh zH
+
 vnoremap > >gv
 vnoremap < <gv
 
@@ -96,6 +100,7 @@ nnoremap \ f,a<CR><Esc>^
 " Split function arguments or list members into their own lines.
 nnoremap <Leader>\ mq^f,`qv%J`qa<CR><Esc>k$%i<CR><Esc>k:s/, *\($\)\@!/,\r<CR>:noh<CR>`qv%=`q
 
+nmap za <Action>(ExpandCollapseToggleAction)
 
 " Type a delimiter for splitting the line into separate lines.
 nnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
@@ -108,8 +113,8 @@ map <c-w>< <Action>(StretchSplitToLeft)
 map <c-w>> <Action>(StretchSplitToRight)
 
 " jump out brackets quickly
-inoremap <a-o> <Esc>/[)}"'\]>`]<CR>:nohl<CR>a
-inoremap <a-i> <Esc>?[({"'\[<`]<CR>:nohl<CR>a
+" inoremap <a-o> <Esc>/[)}"'\]>`]<CR>:nohl<CR>a
+" inoremap <a-i> <Esc>?[({"'\[<`]<CR>:nohl<CR>a
 map <C-t> <action>(EmacsStyleIndent)
 imap <C-t> <action>(EmacsStyleIndent)
 imap <c-h> <Action>(EditorBackSpace)
@@ -124,8 +129,8 @@ imap <C-]> <c-o>f<right>
 map <leader>ff <Action>(GotoClass)
 map <leader>fa <Action>(FindInPath)
 map <leader>bb <Action>(RecentFiles)
-map <leader>gf <Action>(Find)
-map <leader>gr <Action>(Replace)
+map <leader>fq <Action>(Find)
+map <leader>fw <Action>(Replace)
 
 nmap <leader>fc <Action>(NewClass)
 " navigation
@@ -138,12 +143,14 @@ map gy <Action>(GotoTypeDeclaration)zz
 map gr <Action>(ShowUsages)zz
 map gt <Action>(GotoSuperMethod)zz
 
+nmap <leader>p <action>(GotoPreviousError)
+nmap <leader>n <action>(GotoNextError)
 map [g <Action>(GotoPreviousError)
 map ]g <Action>(GotoNextError)
 map [n <Action>(VcsShowPrevChangeMarker)
 map ]n <Action>(VcsShowNextChangeMarker)
-map [c <Action>(VcsShowPrevChangeMarker)
-map ]c <Action>(VcsShowNextChangeMarker)
+map [c <Action>(PreviousDiff)
+map ]c <Action>(NextDiff)
 map go <Action>(FileStructurePopup)
 map gO <Action>(GotoSymbol)
 
@@ -197,8 +204,6 @@ nmap <leader>i <action>(Generate)
 nmap <leader>m <action>(Git.Menu)
 nmap <leader>s <action>(QuickChangeScheme)
 nmap <leader>/ <action>(ShowErrorDescription)
-nmap <leader>n <action>(GotoNextError)
-nmap <leader>p <action>(GotoPreviousError)
 nnoremap <leader><leader> <C-Tab>
 
 nmap <leader>ro :action OptimizeImports<CR>
@@ -210,6 +215,7 @@ nmap <leader>au <Action>(GotoUrlAction)<CR>
 nmap <leader>fs <Action>(GoToRequestMapping)<CR>
 
 imap <a-p> <c-o><Action>(ParameterInfo)i
+nmap <a-p> <c-o><Action>(ParameterInfo)
 
 nmap <leader>gi <Action>(ImplementMethods)
 nmap <leader>go <Action>(OverrideMethods)
@@ -241,8 +247,8 @@ imap <c-a-0> <Action>(xyz.zono.plugin.InputSequenceAction)
 
 
 function! Invert(calledFromVisual)
-  let antonyms = ['true', 'false', 'after', 'before', 'start', 'end', 'left', 'right', 'first', 'last', \
-                  'True', 'False', 'After', 'Before', 'Start', 'End', 'Left', 'Right', 'First', 'Last']
+  let antonyms = ['true', 'false', 'after', 'before', 'start', 'end', 'left', 'right', 'first', 'last',
+\                 'True', 'False', 'After', 'Before', 'Start', 'End', 'Left', 'Right', 'First', 'Last']
 
   if a:calledFromVisual
     normal gv"wy
@@ -267,7 +273,7 @@ nnoremap gs :call Invert(0)<CR>
 vnoremap gs :<C-u>call Invert(1)<CR>
 
 
-
+vnoremap <silent> iv :<C-u>normal! ]wv]b<CR>
 " plugins
 " IdeaVimExtension
 " set keep-english-in-normal
@@ -281,7 +287,8 @@ map <leader>tu :s/\\\\/\//g<CR>
 Plug 'easymotion/vim-easymotion'
 " map f <Plug>(easymotion-bd-fl)
 " map F <Plug>(easymotion-lineforward)
-
+map <A-s> <Plug>(easymotion-fn)
+map <A-a> <Plug>(easymotion-Fn)
 
 " nmap f <Plug>(easymotion-lineforward)
 " nmap F <Plug>(easymotion-linebackward)
@@ -306,14 +313,16 @@ Plug 'preservim/nerdtree'
 set vim-paragraph-motion
 set quickscope
 set textobj-entire
-
+" set sneak
 
 eval nohl
 
 " +admin+
-vnoremap <silent> i+ :<C-u>normal! T+vt+<CR>
-vnoremap <silent> ib :<C-u>normal! ?[({"'\[<`]<CR><right>v/[)}"'\]>`]<CR><left><left><ESC>:nohl<CR>gv
-onoremap <silent> i+ :<C-u>normal! ggVG<CR>
-
-
+" vnoremap <silent> i+ :<C-u>normal! T+vt+<CR>
+vnoremap <silent> ib :<C-u>normal! ?a<CR>v/a<CR>
+onoremap <silent> ib :<C-u>normal! ?[({"'\[<`]<CR><right>v/[)}"'\]>`]<CR><left><ESC>:nohl<CR>gv
+vnoremap <silent> iq :<C-u>normal ?["'`]<CR><right>v/["'`]<CR><left><ESC>:nohl<CR>gv
+onoremap <silent> iq :<C-u>normal! ?["'`]<CR><right>v/["'`]<CR><left><ESC>:nohl<CR>gv
+" onoremap <silent> i+ :<C-u>normal! ggVG<CR>
+cmap <silent> <C-v> <C-r>*
 

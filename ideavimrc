@@ -59,7 +59,8 @@ vnoremap < <gv
 
 nnoremap ` ~
 nnoremap ~ `
-
+nnoremap [-  ?\v(class \|interface )<CR>:nohl<CR>w
+nmap U <c-r>
 
 
 " remove system clipboard setting otherwise the multiple cursor cannot work.
@@ -85,7 +86,7 @@ imap <c-f> <right>
 imap <c-b> <left>
 imap <a-f> <c-o>e<c-f>
 imap <a-b> <c-o>b
-
+imap <c-u> <Action>(EditorDeleteToLineStart)<Action>(EmacsStyleIndent)
 " Make K the logical opposite of J.
 nnoremap gK a<CR><Esc>k$
 " Q plays back q macro.
@@ -113,8 +114,8 @@ map <c-w>< <Action>(StretchSplitToLeft)
 map <c-w>> <Action>(StretchSplitToRight)
 
 " jump out brackets quickly
-" inoremap <a-o> <Esc>/[)}"'\]>`]<CR>:nohl<CR>a
-" inoremap <a-i> <Esc>?[({"'\[<`]<CR>:nohl<CR>a
+inoremap <a-o> <Esc>/[)"'\]>`]<CR>:nohl<CR>a
+inoremap <a-i> <Esc>?[("'\[<`]<CR>:nohl<CR>i
 map <C-t> <action>(EmacsStyleIndent)
 imap <C-t> <action>(EmacsStyleIndent)
 imap <c-h> <Action>(EditorBackSpace)
@@ -136,6 +137,10 @@ nmap <leader>fc <Action>(NewClass)
 " navigation
 map <C-o> <action>(Back)
 map <C-i> <action>(Forward)
+nmap <A-x><A-x> <Action>(Back)
+nmap <A-x><A-z> <Action>(Forward)
+imap <A-x><A-x> <Action>(Back)
+imap <A-x><A-z> <Action>(Forward)
 
 map gd <Action>(GotoDeclaration)zz
 map gi <Action>(GotoImplementation)zz
@@ -168,14 +173,14 @@ map <leader>rec <Action>(IntroduceConstant)
 map <leader>ref <Action>(IntroduceField)
 
 " convert words case
-map crs <Action>(StringManipulation.ToSnakeCase)<esc>
-map crm <Action>(StringManipulation.ToPascalCase)<esc>
-map crc <Action>(StringManipulation.ToCamelCase)<esc>
-map cru <Action>(StringManipulation.ToScreamingSnakeCase)<esc>
-map cr- <Action>(StringManipulation.ToKebabCase)<esc>
-map cr. <Action>(StringManipulation.ToDotCase)<esc>
-map cr<space> <Action>(osmedile.intellij.stringmanip.ToLowerCaseAction)<esc>
-map crt <Action>(StringManipulation.ToPascalCase)<esc>
+nmap crs <Action>(StringManipulation.ToSnakeCase)<esc>
+nmap crm <Action>(StringManipulation.ToPascalCase)<esc>
+nmap crc <Action>(StringManipulation.ToCamelCase)<esc>
+nmap cru <Action>(StringManipulation.ToScreamingSnakeCase)<esc>
+nmap cr- <Action>(StringManipulation.ToKebabCase)<esc>
+nmap cr. <Action>(StringManipulation.ToDotCase)<esc>
+nmap cr<space> <Action>(osmedile.intellij.stringmanip.ToLowerCaseAction)<esc>
+nmap crt <Action>(StringManipulation.ToPascalCase)<esc>
 " debug
 " Map \r to the Reformat Code action
 map \r <Action>(ReformatCode)
@@ -195,19 +200,19 @@ nmap <leader>ds <Action>(StepOver)
 nmap <leader><tab> <C-6>
 
 " actions
-nmap <leader>tm <action>(MoveEditorToOppositeTabGroup)
-nmap <leader>tc <action>(Unsplit)
-nmap <leader>h <action>(PreviousTab)
-nmap <leader>l <action>(NextTab)
-nmap <leader>bd <action>(CloseEditor)
-nmap <leader>i <action>(Generate)
-nmap <leader>m <action>(Git.Menu)
-nmap <leader>s <action>(QuickChangeScheme)
-nmap <leader>/ <action>(ShowErrorDescription)
+nmap <leader>tm <Action>(MoveEditorToOppositeTabGroup)
+nmap <leader>tc <Action>(Unsplit)
+nmap <leader>h <Action>(PreviousTab)
+nmap <leader>l <Action>(NextTab)
+nmap <leader>bd <Action>(CloseEditor)
+nmap <leader>i <Action>(Generate)
+nmap <leader>m <Action>(Git.Menu)
+nmap <leader>s <Action>(QuickChangeScheme)
+nmap <leader>/ <Action>(ShowErrorDescription)
 nnoremap <leader><leader> <C-Tab>
 
 nmap <leader>ro :action OptimizeImports<CR>
-nmap <leader>rG :action Generate<CR>
+nmap <leader>rG <Action>(Generate)
 nmap <leader>cl <Action>(OptimizeImports)<Action>(ReformatCode)<CR>
 nmap <leader>ar  :action ExternalSystem.ProjectRefreshAction<CR>
 nmap <leader>aa <Action>(GotoAction)<CR>
@@ -272,8 +277,7 @@ endfunction
 nnoremap gs :call Invert(0)<CR>
 vnoremap gs :<C-u>call Invert(1)<CR>
 
-
-vnoremap <silent> iv :<C-u>normal! ]wv]b<CR>
+vnoremap <silent> iv :<C-u>normal! ]wv[b<CR>
 " plugins
 " IdeaVimExtension
 " set keep-english-in-normal
@@ -308,6 +312,21 @@ Plug 'vim-commentary'
 
 map s gr
 map S gr$
+
+
+" cheatsheet
+" O Recursively open the selected directory
+" x Close the current nodes parent
+" p go to parent
+" P go to root parent
+" J Jump down inside directories at the current tree depth
+" K Jump up inside directories at the current tree depth
+" C-j Jump down to next sibling of the current directory	
+" C-k Jump up to previous sibling of the current directory
+" m show nerd menu
+" 
+"
+"
 
 Plug 'preservim/nerdtree'
 set vim-paragraph-motion

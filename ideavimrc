@@ -25,7 +25,9 @@ set showcmd
 map Q gq
 
 " idea specific settings
-set idearefactormode=keep
+set idearefactormode=kee
+" set idearefactormode=normal
+set ideastatusicon=gray
 set ideajoin
 set ideaput
 set ideamarks
@@ -57,10 +59,13 @@ nnoremap zh zH
 vnoremap > >gv
 vnoremap < <gv
 
-nnoremap ` ~
-nnoremap ~ `
+" nnoremap ` ~
+" nnoremap ~ `
 nnoremap [-  ?\v(class \|interface )<CR>:nohl<CR>w
+nnoremap <leader>fnc  /@Override<CR>
 nmap U <c-r>
+nmap H _
+nmap L $
 
 
 " remove system clipboard setting otherwise the multiple cursor cannot work.
@@ -128,6 +133,7 @@ imap <C-]> <c-o>f<right>
 
 " find and replace
 map <leader>ff <Action>(GotoClass)
+map <leader><leader> <Action>(GotoClass)
 map <leader>fa <Action>(FindInPath)
 map <leader>bb <Action>(RecentFiles)
 map <leader>fq <Action>(Find)
@@ -234,6 +240,7 @@ nmap <leader>gl <Action>(Vcs.UpdateProject)
 nmap <leader>ga <Action>(CheckinProject)
 nmap <leader>gp <Action>(Vcs.Push)
 nmap <leader>gr <Action>(Vcs.RollbackChangedLines)
+nmap <leader>db <Action>(ShowBlankDiffWindow)
 
 nmap g; <Action>(JumpToLastChange)
 nmap g, <Action>(JumpToNextChange)
@@ -289,15 +296,24 @@ map <leader>tu :s/\\\\/\//g<CR>
 "南通街
 " Plugins
 Plug 'easymotion/vim-easymotion'
+let g:EasyMotion_do_mapping = 0
 " map f <Plug>(easymotion-bd-fl)
 " map F <Plug>(easymotion-lineforward)
-map <A-s> <Plug>(easymotion-fn)
+map <A-s> <Plug>(easymotion-bd-fn)
 map <A-a> <Plug>(easymotion-Fn)
 
 " nmap f <Plug>(easymotion-lineforward)
 " nmap F <Plug>(easymotion-linebackward)
 " b B r a repents ) } ] >
 Plug 'tpope/vim-surround'
+
+
+nmap sdf <Action>(Unwrap)
+nmap sa ys
+nmap sc cs
+nmap sd ds
+
+
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-scripts/argtextobj.vim'
 let g:argtextobj_pairs="(:),{:},<:>"
@@ -336,12 +352,17 @@ set textobj-entire
 
 eval nohl
 
-" +admin+
-" vnoremap <silent> i+ :<C-u>normal! T+vt+<CR>
-vnoremap <silent> ib :<C-u>normal! ?a<CR>v/a<CR>
-onoremap <silent> ib :<C-u>normal! ?[({"'\[<`]<CR><right>v/[)}"'\]>`]<CR><left><ESC>:nohl<CR>gv
-vnoremap <silent> iq :<C-u>normal ?["'`]<CR><right>v/["'`]<CR><left><ESC>:nohl<CR>gv
+vnoremap <silent> ib :<C-u>normal! ?[({\[<]<CR><right>m</[)}\]>]<CR><left>m>:nohl<CR>gv
+onoremap <silent> ib :<C-u>normal! ?[({\[<]<CR><right>m</[)}\]>]<CR><left>m>:nohl<CR>gv
+vnoremap <silent> iq :<C-u>normal! ?["'`]<CR><right>v/["'`]<CR><left><ESC>:nohl<CR>gv
 onoremap <silent> iq :<C-u>normal! ?["'`]<CR><right>v/["'`]<CR><left><ESC>:nohl<CR>gv
-" onoremap <silent> i+ :<C-u>normal! ggVG<CR>
+vnoremap <silent> i+ :<C-u>normal! ggVG<CR>
 cmap <silent> <C-v> <C-r>*
 
+" zen
+nmap <leader>zz <Action>(ToggleZenMode)
+" helloWorld
+xnoremap iv i\e
+onoremap iv i\e
+xnoremap av i\w
+onoremap av i\w

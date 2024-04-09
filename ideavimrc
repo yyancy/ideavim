@@ -1,5 +1,5 @@
 " ideavim's configurations
-
+" delete to word start in Different "CamelHumps" mode C-M-h
 " basic settings
 set number relativenumber
 set encoding=utf-8
@@ -25,7 +25,7 @@ set showcmd
 map Q gq
 
 " idea specific settings
-set idearefactormode=kee
+set idearefactormode=keep
 " set idearefactormode=normal
 set ideastatusicon=gray
 set ideajoin

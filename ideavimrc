@@ -4,6 +4,8 @@
 set number relativenumber
 set encoding=utf-8
 set clipboard+=unnamed
+" disable hint sound
+set visualbell
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
 set scrolloff=5
@@ -210,6 +212,8 @@ nmap <leader>tm <Action>(MoveEditorToOppositeTabGroup)
 nmap <leader>tc <Action>(Unsplit)
 nmap <leader>h <Action>(PreviousTab)
 nmap <leader>l <Action>(NextTab)
+nmap [b <Action>(PreviousTab)
+nmap ]b <Action>(NextTab)
 nmap <leader>bd <Action>(CloseEditor)
 nmap <leader>i <Action>(Generate)
 nmap <leader>m <Action>(Git.Menu)
@@ -223,7 +227,7 @@ nmap <leader>cl <Action>(OptimizeImports)<Action>(ReformatCode)<CR>
 nmap <leader>ar  :action ExternalSystem.ProjectRefreshAction<CR>
 nmap <leader>aa <Action>(GotoAction)<CR>
 nmap <leader>au <Action>(GotoUrlAction)<CR>
-nmap <leader>fs <Action>(GoToRequestMapping)<CR>
+nmap <leader>fs <Action>(GotoUrlAction)<CR>
 
 imap <a-p> <c-o><Action>(ParameterInfo)i
 nmap <a-p> <c-o><Action>(ParameterInfo)
@@ -366,3 +370,19 @@ xnoremap iv i\e
 onoremap iv i\e
 xnoremap av i\w
 onoremap av i\w
+
+
+nnoremap x d
+xnoremap x d
+nnoremap xx dd
+nnoremap X D
+
+nnoremap c "_c
+xnoremap c "_c
+nnoremap cc "_cc
+nnoremap C "_C
+
+nnoremap d "_d
+xnoremap d "_d
+nnoremap dd "_dd
+nnoremap D "_D

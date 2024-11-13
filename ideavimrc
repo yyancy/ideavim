@@ -260,6 +260,7 @@ nmap [q <Action>(GotoPrevElementUnderCaretUsage)
 
 imap <a-,> <Action>(CodeCompletion)
 imap <c-a-0> <Action>(xyz.zono.plugin.InputSequenceAction)
+nmap <leader>vr <Action>(IdeaVim.ReloadVimRc.reload)
 
 
 function! Invert(calledFromVisual)

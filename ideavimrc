@@ -36,6 +36,7 @@ set ideamarks
 set gdefault " set g flag for substitute
 
 " edit ideavim config
+" basic mappings
 nnoremap <leader>T :e ~/.config/ideavim/ideavimrc<CR>
 nnoremap <leader>Z :action IdeaVim.ReloadVimRc.reload<CR>
 " don't overwrite register when pasting over selection
@@ -45,7 +46,6 @@ nmap =P :-1put *<CR>
 " not moving previous cursor position after yanking a region.
 vmap y ygv<Esc>
 
-" basic mappings
 map 0 _
 nmap Y y$
 vnoremap <C-c> y
@@ -288,8 +288,26 @@ function! Invert(calledFromVisual)
   endwhile
 endfunction
 
-nnoremap gs :call Invert(0)<CR>
-vnoremap gs :<C-u>call Invert(1)<CR>
+" nnoremap gs :call Invert(0)<CR>
+" vnoremap gs :<C-u>call Invert(1)<CR>
+
+
+set switch
+nnoremap gs :Switch<CR>
+" Enable all patterns from multiple groups
+let g:switch_definitions = 'group:basic,group:java,group:rspec'
+
+let g:switch_custom_definitions = [
+    " Basic word cycling (with word boundaries)
+    \ switchWords(['debug', 'info', 'warn', 'error']),
+
+    " Case-insensitive word cycling (with word boundaries)
+    \ switchNormalizedCaseWords(['GET', 'POST', 'PUT', 'DELETE']),
+
+    " Custom regex patterns (each pattern is a pair of [match, replacement])
+    \ ['width:\s*(\d+)px', 'width: \1em'],
+    \ ['height:\s*(\d+)px', 'height: \1em']
+\ ]
 
 vnoremap <silent> iv :<C-u>normal! ]wv[b<CR>
 " plugins
@@ -322,6 +340,23 @@ nmap sd ds
 
 
 Plug 'terryma/vim-multiple-cursors'
+" Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
+nmap <C-n> <Plug>NextWholeOccurrence
+xmap <C-n> <Plug>NextWholeOccurrence
+nmap g<C-n> <Plug>NextOccurrence
+xmap g<C-n> <Plug>NextOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
+
+" Note that the default <A-n> and g<A-n> shortcuts don't work on Mac due to dead keys.
+" <A-n> is used to enter accented text e.g. ñ
+" Feel free to pick your own mappings that are not affected. I like to use <leader>
+nmap <leader><C-n> <Plug>AllWholeOccurrences
+xmap <leader><C-n> <Plug>AllWholeOccurrences
+nmap <leader>g<C-n> <Plug>AllOccurrences
+xmap <leader>g<C-n> <Plug>AllOccurrences
+
+
 Plug 'vim-scripts/argtextobj.vim'
 let g:argtextobj_pairs="(:),{:},<:>"
 
@@ -332,7 +367,7 @@ Plug 'vim-matchit'
 Plug 'vim-scripts/ReplaceWithRegister'
 
 Plug 'vim-commentary'
-
+set functiontextobj
 map s gr
 map S gr$
 
@@ -347,15 +382,17 @@ map S gr$
 " C-j Jump down to next sibling of the current directory	
 " C-k Jump up to previous sibling of the current directory
 " m show nerd menu
-" 
-"
-"
+" https://github.com/JetBrains/ideavim/wiki/NERDTree-support
 
 Plug 'preservim/nerdtree'
 set vim-paragraph-motion
 set quickscope
 set textobj-entire
 " set sneak
+
+" show register content
+set peekaboo
+set mini-ai
 
 eval nohl
 

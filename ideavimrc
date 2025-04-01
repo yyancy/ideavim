@@ -101,8 +101,8 @@ nnoremap Q @q
 
 nnoremap cn cgn
 " Easier substitution.
-nnoremap <Leader>, :%s/
-xnoremap <Leader>, :s/
+nnoremap <Leader>;, :%s/
+xnoremap <Leader>;, :s/
 " Split line on a comma.
 nnoremap \ f,a<CR><Esc>^
 " Split function arguments or list members into their own lines.
@@ -111,8 +111,8 @@ nnoremap <Leader>\ mq^f,`qv%J`qa<CR><Esc>k$%i<CR><Esc>k:s/, *\($\)\@!/,\r<CR>:no
 nmap za <Action>(ExpandCollapseToggleAction)
 
 " Type a delimiter for splitting the line into separate lines.
-nnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
-xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
+" nnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
+" xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 
 map <c-w>m <Action>(MaximizeEditorInSplit)
 map <c-w>+ <Action>(StretchSplitToTop)
@@ -138,6 +138,7 @@ map <leader>ff <Action>(GotoClass)
 map <leader><leader> <Action>(GotoClass)
 map <leader>fa <Action>(FindInPath)
 map <leader>bb <Action>(RecentFiles)
+map <leader>, <Action>(RecentFiles)
 map <leader>fq <Action>(Find)
 map <leader>fw <Action>(Replace)
 
@@ -206,6 +207,7 @@ nmap <leader>di <Action>(StepInto)
 nmap <leader>ds <Action>(StepOver)
 
 nmap <leader><tab> <C-6>
+nmap <leader>` <C-6>
 
 " actions
 nmap <leader>tm <Action>(MoveEditorToOppositeTabGroup)
@@ -219,7 +221,7 @@ nmap <leader>i <Action>(Generate)
 nmap <leader>m <Action>(Git.Menu)
 nmap <leader>s <Action>(QuickChangeScheme)
 nmap <leader>/ <Action>(ShowErrorDescription)
-nnoremap <leader><leader> <C-Tab>
+" nnoremap <leader><leader> <C-Tab>
 
 nmap <leader>ro :action OptimizeImports<CR>
 nmap <leader>rG <Action>(Generate)

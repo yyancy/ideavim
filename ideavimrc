@@ -23,8 +23,6 @@ set matchpairs+==:;
 
 set showcmd
 " set nowrapscan
-" Don't use Ex mode, use Q for formatting.
-map Q gq
 
 " idea specific settings
 set idearefactormode=keep
@@ -80,11 +78,16 @@ map <leader>qa <Action>(CloseAllEditorsButActive)
 
 " map <leader><tab> <Action>(CloseAllToTheRight)
 map <leader><S-tab> <Action>(CloseAllEditorsButActive)
-nmap <leader>? <Action>(GotoAction)<CR>
 map <c-h> <c-w><c-h>
 map <c-j> <c-w><c-j>
 map <c-k> <c-w><c-k>
 map <c-l> <c-w><c-l>
+
+map <c-w>m <Action>(MaximizeEditorInSplit)
+map <c-w>+ <Action>(StretchSplitToTop)
+map <c-w>- <Action>(StretchSplitToBottom)
+map <c-w>< <Action>(StretchSplitToLeft)
+map <c-w>> <Action>(StretchSplitToRight)
 
 imap <c-a> <c-o>_
 imap <c-k> <c-o>C
@@ -96,6 +99,8 @@ imap <a-b> <c-o>b
 imap <c-u> <Action>(EditorDeleteToLineStart)<Action>(EmacsStyleIndent)
 " Make K the logical opposite of J.
 nnoremap gK a<CR><Esc>k$
+" Don't use Ex mode, use Q for formatting.
+map Q gq
 " Q plays back q macro.
 nnoremap Q @q
 
@@ -114,11 +119,6 @@ nmap za <Action>(ExpandCollapseToggleAction)
 " nnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 " xnoremap <Leader><Leader>\ :s//&\r<Left><Left><Left><Left>
 
-map <c-w>m <Action>(MaximizeEditorInSplit)
-map <c-w>+ <Action>(StretchSplitToTop)
-map <c-w>- <Action>(StretchSplitToBottom)
-map <c-w>< <Action>(StretchSplitToLeft)
-map <c-w>> <Action>(StretchSplitToRight)
 
 " jump out brackets quickly
 inoremap <a-o> <Esc>/[)"'\]>`]<CR>:nohl<CR>a
@@ -228,6 +228,7 @@ nmap <leader>rG <Action>(Generate)
 nmap <leader>cl <Action>(OptimizeImports)<Action>(ReformatCode)<CR>
 nmap <leader>ar  :action ExternalSystem.ProjectRefreshAction<CR>
 nmap <leader>aa <Action>(GotoAction)<CR>
+nmap <leader>? <Action>(GotoAction)<CR>
 nmap <leader>au <Action>(GotoUrlAction)<CR>
 nmap <leader>fs <Action>(GotoUrlAction)<CR>
 
@@ -396,10 +397,10 @@ set mini-ai
 
 eval nohl
 
-vnoremap <silent> ib :<C-u>normal! ?[({\[<]<CR><right>m</[)}\]>]<CR><left>m>:nohl<CR>gv
-onoremap <silent> ib :<C-u>normal! ?[({\[<]<CR><right>m</[)}\]>]<CR><left>m>:nohl<CR>gv
-vnoremap <silent> iq :<C-u>normal! ?["'`]<CR><right>v/["'`]<CR><left><ESC>:nohl<CR>gv
-onoremap <silent> iq :<C-u>normal! ?["'`]<CR><right>v/["'`]<CR><left><ESC>:nohl<CR>gv
+" vnoremap <silent> ib :<C-u>normal! ?[({\[<]<CR><right>m</[)}\]>]<CR><left>m>:nohl<CR>gv
+" onoremap <silent> ib :<C-u>normal! ?[({\[<]<CR><right>m</[)}\]>]<CR><left>m>:nohl<CR>gv
+" vnoremap <silent> iq :<C-u>normal! ?["'`]<CR><right>v/["'`]<CR><left><ESC>:nohl<CR>gv
+" onoremap <silent> iq :<C-u>normal! ?["'`]<CR><right>v/["'`]<CR><left><ESC>:nohl<CR>gv
 vnoremap <silent> i+ :<C-u>normal! ggVG<CR>
 cmap <silent> <C-v> <C-r>*
 

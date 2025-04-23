@@ -1,5 +1,7 @@
 " ideavim's configurations
 " delete to word start in Different "CamelHumps" mode C-M-h
+" https://github.com/JetBrains/ideavim/discussions/944
+" C-g switch select mode, can perform surround action
 " basic settings
 set number relativenumber
 set encoding=utf-8
@@ -334,6 +336,7 @@ map <A-a> <Plug>(easymotion-Fn)
 Plug 'tpope/vim-surround'
 
 
+" S like sa working in visual mode
 nmap sdf <Action>(Unwrap)
 nmap sa ys
 nmap sc cs

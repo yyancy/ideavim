@@ -139,8 +139,12 @@ imap <C-]> <c-o>f<right>
 map <leader>ff <Action>(GotoClass)
 map <leader><leader> <Action>(GotoClass)
 map <leader>fa <Action>(FindInPath)
+map <leader>/ <Action>(FindInPath)
 map <leader>bb <Action>(RecentFiles)
 map <leader>, <Action>(RecentFiles)
+map <leader>. <Action>(RecentChangedFiles)
+map <leader><C-,> <Action>(RecentLocations)
+map <leader><C-.> <Action>(RecentLocations)<Action>(RecentLocations)
 map <leader>fq <Action>(Find)
 map <leader>fw <Action>(Replace)
 
@@ -152,6 +156,7 @@ nmap <A-x><A-x> <Action>(Back)
 nmap <A-x><A-z> <Action>(Forward)
 imap <A-x><A-x> <Action>(Back)
 imap <A-x><A-z> <Action>(Forward)
+map <A-z><A-z> <Action>(HideAllWindows)
 
 map gd <Action>(GotoDeclaration)zz
 map gi <Action>(GotoImplementation)zz
@@ -169,6 +174,13 @@ map [c <Action>(PreviousDiff)
 map ]c <Action>(NextDiff)
 map go <Action>(FileStructurePopup)
 map gO <Action>(GotoSymbol)
+
+map ml <Action>(ShowBookmarks)
+map mm <Action>(ToggleBookmark)
+map mi <Action>(ToggleBookmarkWithMnemonic)
+map mn <Action>(GotoNextBookmark)
+map mp <Action>(GotoPreviousBookmark)
+
 
 map [<leader> <Action>(EditorStartNewLineBefore)
 map ]<leader> <Action>(EditorStartNewLine)
@@ -195,13 +207,14 @@ nmap crt <Action>(StringManipulation.ToPascalCase)<esc>
 " debug
 " Map \r to the Reformat Code action
 map \r <Action>(ReformatCode)
+map \R <Action>(ShowReformatFileDialog)
 
 " Map <leader>d to start debug
 map <leader>rr <Action>(Run)
 map <leader>rd <Action>(Debug)
 
 " Map \b to toggle the breakpoint on the current line
-nmap <leader>db <Action>(ToggleLineBreakpoint)
+nmap <leader>dd <Action>(ToggleLineBreakpoint)
 nmap <leader>dc <Action>(Resume)
 nmap <leader>dC <Action>(ResumeRunToCursor)
 nmap <leader>de <Action>(QuickEvaluateExpression)
@@ -250,6 +263,7 @@ nmap <leader>ga <Action>(CheckinProject)
 nmap <leader>gp <Action>(Vcs.Push)
 nmap <leader>gr <Action>(Vcs.RollbackChangedLines)
 nmap <leader>db <Action>(ShowBlankDiffWindow)
+nmap <leader>gq <Action>(EditSource)
 
 nmap g; <Action>(JumpToLastChange)
 nmap g, <Action>(JumpToNextChange)
@@ -430,3 +444,12 @@ nnoremap d "_d
 xnoremap d "_d
 nnoremap dd "_dd
 nnoremap D "_D
+
+"keep yank position
+" https://github.com/JetBrains/ideavim/discussions/1030
+vnoremap <expr> y 'm`"' . v:register . 'y``'
+nnoremap yw muyiw`u
+nnoremap dw "_diw
+nnoremap cw "_ciw
+nnoremap xw diw
+nmap sw griw

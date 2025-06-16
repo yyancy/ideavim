@@ -452,4 +452,6 @@ nnoremap yw muyiw`u
 nnoremap dw "_diw
 nnoremap cw "_ciw
 nnoremap xw diw
+nmap yq yiq
+nmap yb yib
 nmap sw griw

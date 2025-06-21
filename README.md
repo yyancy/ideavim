@@ -11,6 +11,7 @@
 - Github copilot
 - GitToolBox
 - InputSequence
+- vim-flash
 
 
 ### Mybatis related

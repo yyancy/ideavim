@@ -149,6 +149,7 @@ map <leader>fq <Action>(Find)
 map <leader>fw <Action>(Replace)
 
 nmap <leader>fc <Action>(NewClass)
+
 " navigation
 map <C-o> <action>(Back)
 map <C-i> <action>(Forward)
@@ -189,11 +190,13 @@ map [e <Action>(MoveLineUp)
 map ]e <Action>(MoveLineDown)
 " refactor
 map <leader>rn <Action>(RenameElement)
+map <leader>rc <Action>(CopyElement)
 map <leader>rs <Action>(ChangeSignature)
 map <leader>rem <Action>(ExtractMethod)
 map <leader>rev <Action>(IntroduceVariable)
 map <leader>rec <Action>(IntroduceConstant)
 map <leader>ref <Action>(IntroduceField)
+map <leader>ree <Action>(Refactorings.QuickListPopupAction)
 
 " convert words case
 nmap crs <Action>(StringManipulation.ToSnakeCase)<esc>
@@ -448,10 +451,23 @@ nnoremap D "_D
 "keep yank position
 " https://github.com/JetBrains/ideavim/discussions/1030
 vnoremap <expr> y 'm`"' . v:register . 'y``'
-nnoremap yw muyiw`u
+
 nnoremap dw "_diw
+nnoremap dq "_diq
+nnoremap db "_dib
+
 nnoremap cw "_ciw
+nnoremap cq "_ciq
+nnoremap cb "_cib
+
 nnoremap xw diw
+nnoremap xq diq
+nnoremap xb dib
+
+nnoremap yw muyiw`u
 nmap yq yiq
 nmap yb yib
+
 nmap sw griw
+nmap sq griq
+nmap sb grib

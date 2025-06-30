@@ -238,7 +238,7 @@ nmap <leader>bd <Action>(CloseEditor)
 nmap <leader>i <Action>(Generate)
 nmap <leader>m <Action>(Git.Menu)
 nmap <leader>s <Action>(QuickChangeScheme)
-nmap <leader>/ <Action>(ShowErrorDescription)
+nmap <leader>sd <Action>(ShowErrorDescription)
 " nnoremap <leader><leader> <C-Tab>
 
 nmap <leader>ro :action OptimizeImports<CR>
@@ -344,8 +344,10 @@ Plug 'easymotion/vim-easymotion'
 let g:EasyMotion_do_mapping = 0
 " map f <Plug>(easymotion-bd-fl)
 " map F <Plug>(easymotion-lineforward)
-map <A-s> <Plug>(easymotion-bd-fn)
+" map <A-s> <Plug>(easymotion-bd-fn)
 map <A-a> <Plug>(easymotion-Fn)
+nmap <A-s> <Action>(flash.search)
+xmap <A-s> <Action>(flash.search)
 
 " nmap f <Plug>(easymotion-lineforward)
 " nmap F <Plug>(easymotion-linebackward)

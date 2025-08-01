@@ -11,8 +11,8 @@ set visualbell
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
 set scrolloff=5
-set sidescroll=10
-set sidescrolloff=45
+set sidescroll=40
+set sidescrolloff=25
 let mapleader=" "
 " Do incremental searching.
 set incsearch
@@ -63,12 +63,14 @@ vnoremap < <gv
 
 " nnoremap ` ~
 " nnoremap ~ `
-nnoremap [-  ?\v(class \|interface )<CR>:nohl<CR>w
+nnoremap [-  k?\v(class \|interface )<CR>:nohl<CR>w
 nnoremap <leader>fnc  /@Override<CR>
 nmap U <c-r>
 nmap H _
 nmap L $
 
+" search text in visual mode
+vmap * "ry/<C-R>r<CR>
 
 " remove system clipboard setting otherwise the multiple cursor cannot work.
 map <leader>ocb :set cb-=unnamed<CR>
@@ -459,7 +461,7 @@ nnoremap dq "_diq
 nnoremap db "_dib
 
 nnoremap cw "_ciw
-nnoremap cq "_ciq
+nmap cq "_ciq
 nnoremap cb "_cib
 
 nnoremap xw diw

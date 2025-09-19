@@ -69,12 +69,16 @@ nmap U <c-r>
 nmap H _
 nmap L $
 
+omap H _
+omap L $
+
 " search text in visual mode
 vmap * "ry/<C-R>r<CR>
 
 " remove system clipboard setting otherwise the multiple cursor cannot work.
 map <leader>ocb :set cb-=unnamed<CR>
 map <leader>ocB :set cb+=unnamed<CR>
+nmap <leader>od <Action>(ToggleRenderedDocPresentation)
 
 map <leader><cr> :noh<cr>
 map <leader>qq <Action>(CloseContent)
@@ -138,7 +142,7 @@ map <leader>\| <Action>(SplitVertically)
 imap <C-]> <c-o>f<right>
 
 " find and replace
-map <leader>ff <Action>(GotoClass)
+map <leader>ff <Action>(GotoFile)
 map <leader><leader> <Action>(GotoClass)
 map <leader>fa <Action>(FindInPath)
 map <leader>/ <Action>(FindInPath)
@@ -199,6 +203,7 @@ map <leader>rev <Action>(IntroduceVariable)
 map <leader>rec <Action>(IntroduceConstant)
 map <leader>ref <Action>(IntroduceField)
 map <leader>ree <Action>(Refactorings.QuickListPopupAction)
+vmap rs <Action>(SurroundWith)
 
 " convert words case
 nmap crs <Action>(StringManipulation.ToSnakeCase)<esc>
@@ -217,6 +222,7 @@ map \R <Action>(ShowReformatFileDialog)
 " Map <leader>d to start debug
 map <leader>rr <Action>(Run)
 map <leader>rd <Action>(Debug)
+map <leader>rt <Action>(Stop)
 
 " Map \b to toggle the breakpoint on the current line
 nmap <leader>dd <Action>(ToggleLineBreakpoint)
@@ -416,7 +422,7 @@ set textobj-entire
 " set sneak
 
 " show register content
-set peekaboo
+" set peekaboo
 set mini-ai
 
 eval nohl
@@ -475,3 +481,12 @@ nmap yb yib
 nmap sw griw
 nmap sq griq
 nmap sb grib
+
+
+nnoremap <expr> j (v:count <= 1 ? 'j' : "m'" . v:count . 'j')
+nnoremap <expr> k (v:count <= 1 ? 'k' : "m'" . v:count . 'k')
+xnoremap <expr> j (v:count <= 1 ? 'j' : "m'" . v:count . 'j')
+xnoremap <expr> k (v:count <= 1 ? 'k' : "m'" . v:count . 'k')
+
+
+" MoveEditorToOppositeTabGroup

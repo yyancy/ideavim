@@ -1,0 +1,2 @@
+.formatdatetime : format date to yyyy-MM-dd HH:mm:ss
+    java.util.Date -> DateUtil.formatDateTime($expr$)

@@ -2,7 +2,7 @@
     java.util.Date -> DateUtil.formatDateTime($expr$)
 
 .jtomap : json to map
-    java.lang.String ->   Map<String, Object> $END$ = com.baidu.bailing.lib.ral.json.JsonUtil.fromJson2Object($expr$,\
+    java.lang.String -> Map<String, Object> $END$ = com.baidu.bailing.lib.ral.json.JsonUtil.fromJson2Object($expr$,\
                     new com.google.gson.reflect.TypeToken<Map<String, Object>>() {\
                     }.getRawType());
 

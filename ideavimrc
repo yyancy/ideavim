@@ -66,8 +66,8 @@ vnoremap < <gv
 nnoremap [-  k?\v(class \|interface )<CR>:nohl<CR>w
 nnoremap <leader>fnc  /@Override<CR>
 nmap U <c-r>
-nmap H _
-nmap L $
+map H _
+map L $
 
 omap H _
 omap L $
@@ -463,7 +463,7 @@ nnoremap D "_D
 vnoremap <expr> y 'm`"' . v:register . 'y``'
 
 nnoremap dw "_diw
-nnoremap dq "_diq
+nmap dq "_diq
 nnoremap db "_dib
 
 nnoremap cw "_ciw
@@ -490,3 +490,4 @@ xnoremap <expr> k (v:count <= 1 ? 'k' : "m'" . v:count . 'k')
 
 
 " MoveEditorToOppositeTabGroup
+map <C-S-i> <Action>(copilot.chat.show)

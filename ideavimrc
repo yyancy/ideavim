@@ -214,6 +214,19 @@ nmap cr- <Action>(StringManipulation.ToKebabCase)<esc>
 nmap cr. <Action>(StringManipulation.ToDotCase)<esc>
 nmap cr<space> <Action>(osmedile.intellij.stringmanip.ToLowerCaseAction)<esc>
 nmap crt <Action>(StringManipulation.ToPascalCase)<esc>
+" visual mode
+vmap <leader>crs <Action>(StringManipulation.ToSnakeCase)<esc>
+vmap <leader>crm <Action>(StringManipulation.ToPascalCase)<esc>
+vmap <leader>crc <Action>(StringManipulation.ToCamelCase)<esc>
+vmap <leader>cru <Action>(StringManipulation.ToScreamingSnakeCase)<esc>
+vmap <leader>cr- <Action>(StringManipulation.ToKebabCase)<esc>
+vmap <leader>cr. <Action>(StringManipulation.ToDotCase)<esc>
+vmap <leader>cr<space> <Action>(osmedile.intellij.stringmanip.ToLowerCaseAction)<esc>
+vmap <leader>crt <Action>(StringManipulation.ToPascalCase)<esc>
+" osmedile.intellij.stringmanip.RepeatAction
+nmap g. <Action>(osmedile.intellij.stringmanip.RepeatAction)<esc>
+vmap g. <Action>(osmedile.intellij.stringmanip.RepeatAction)<esc>
+
 " debug
 " Map \r to the Reformat Code action
 map \r <Action>(ReformatCode)
@@ -357,6 +370,7 @@ map <A-a> <Plug>(easymotion-Fn)
 nmap <A-s> <Action>(flash.search)
 xmap <A-s> <Action>(flash.search)
 
+
 " nmap f <Plug>(easymotion-lineforward)
 " nmap F <Plug>(easymotion-linebackward)
 " b B r a repents ) } ] >
@@ -387,6 +401,9 @@ xmap <leader><C-n> <Plug>AllWholeOccurrences
 nmap <leader>g<C-n> <Plug>AllOccurrences
 xmap <leader>g<C-n> <Plug>AllOccurrences
 
+xmap v <Action>(EditorSelectWord)
+xmap V <Action>(EditorUnSelectWord)
+
 
 Plug 'vim-scripts/argtextobj.vim'
 let g:argtextobj_pairs="(:),{:},<:>"
@@ -396,6 +413,7 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'vim-matchit'
 Plug 'vim-scripts/ReplaceWithRegister'
+
 
 Plug 'vim-commentary'
 set functiontextobj
@@ -491,3 +509,5 @@ xnoremap <expr> k (v:count <= 1 ? 'k' : "m'" . v:count . 'k')
 
 " MoveEditorToOppositeTabGroup
 map <C-S-i> <Action>(copilot.chat.show)
+
+

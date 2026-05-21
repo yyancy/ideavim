@@ -416,7 +416,7 @@ Plug 'vim-scripts/ReplaceWithRegister'
 
 
 Plug 'vim-commentary'
-set functiontextobj
+" set functiontextobj
 map s gr
 map S gr$
 
@@ -511,3 +511,13 @@ xnoremap <expr> k (v:count <= 1 ? 'k' : "m'" . v:count . 'k')
 map <C-S-i> <Action>(copilot.chat.show)
 
 
+" everywhere plugin
+set VimEverywhere
+
+" https://github.com/magidc/ideavim-anyobject#anysubword-u
+set anyobject
+
+let g:anyobject_map_anyfunction = "f"
+let g:anyobject_map_anysubword = "v"
+let g:anyobject_map_anyvariable = "u"
+" let g:anyobject_map_anybracket = "b"

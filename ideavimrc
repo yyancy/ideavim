@@ -292,6 +292,10 @@ nmap <leader>gq <Action>(EditSource)
 nmap g; <Action>(JumpToLastChange)
 nmap g, <Action>(JumpToNextChange)
 
+xmap v <Action>(EditorSelectWord)
+xmap V <Action>(EditorUnSelectWord)
+
+
 " Toggle case and start typing. E.g. `<leader>iget`: `property` -> `getProperty`
 nmap <leader>i ~hi
 " Remove selection and toggle case. E.g. `v2l<leader>u`: `getProperty` -> `property`
@@ -304,33 +308,6 @@ nmap [q <Action>(GotoPrevElementUnderCaretUsage)
 imap <a-,> <Action>(CodeCompletion)
 imap <c-a-0> <Action>(xyz.zono.plugin.InputSequenceAction)
 nmap <leader>vr <Action>(IdeaVim.ReloadVimRc.reload)
-
-
-function! Invert(calledFromVisual)
-  let antonyms = ['true', 'false', 'after', 'before', 'start', 'end', 'left', 'right', 'first', 'last',
-\                 'True', 'False', 'After', 'Before', 'Start', 'End', 'Left', 'Right', 'First', 'Last']
-
-  if a:calledFromVisual
-    normal gv"wy
-  else
-    normal "wyiw
-  endif
-  let wordUnderCaret = @w
-
-  let eraseWord = a:calledFromVisual ? 'gvc' : 'ciw'
-  let count = 0
-  while (count < len(antonyms))
-    if (antonyms[count] ==# wordUnderCaret)
-      let antonym = (count % 2 ==? 0) ? antonyms[count + 1] : antonyms[count - 1]
-      execute 'normal ' .. eraseWord .. antonym
-      break
-    endif
-    let count += 1
-  endwhile
-endfunction
-
-" nnoremap gs :call Invert(0)<CR>
-" vnoremap gs :<C-u>call Invert(1)<CR>
 
 
 set switch
@@ -373,9 +350,9 @@ xmap <A-s> <Action>(flash.search)
 
 " nmap f <Plug>(easymotion-lineforward)
 " nmap F <Plug>(easymotion-linebackward)
+
 " b B r a repents ) } ] >
 Plug 'tpope/vim-surround'
-
 
 " S like sa working in visual mode
 nmap sdf <Action>(Unwrap)
@@ -401,11 +378,9 @@ xmap <leader><C-n> <Plug>AllWholeOccurrences
 nmap <leader>g<C-n> <Plug>AllOccurrences
 xmap <leader>g<C-n> <Plug>AllOccurrences
 
-xmap v <Action>(EditorSelectWord)
-xmap V <Action>(EditorUnSelectWord)
 
 
-Plug 'vim-scripts/argtextobj.vim'
+set argtextobj
 let g:argtextobj_pairs="(:),{:},<:>"
 
 Plug 'tommcdo/vim-exchange'
@@ -435,13 +410,13 @@ map S gr$
 
 Plug 'preservim/nerdtree'
 set vim-paragraph-motion
-set quickscope
+" set quickscope
 set textobj-entire
 " set sneak
 
 " show register content
 " set peekaboo
-set mini-ai
+" set mini-ai
 
 eval nohl
 
@@ -517,8 +492,11 @@ set VimEverywhere
 " https://github.com/magidc/ideavim-anyobject#anysubword-u
 set anyobject
 
-let g:anyobject_included = "anyDocument,anyFunction,anySubword,anyString"
+let g:anyobject_included = "anyDocument,anyFunction,anySubword, anyQuote, anyString,anyBracket, anyComment"
 let g:anyobject_map_anyfunction = "f"
 let g:anyobject_map_anysubword = "v"
 let g:anyobject_map_anyvariable = "u"
-" let g:anyobject_map_anybracket = "b"
+let g:anyobject_map_anyquote = "q"
+let g:anyobject_map_anystring = "g"
+let g:anyobject_map_anybracket = "b"
+let g:anyobject_map_anycomment = "k"

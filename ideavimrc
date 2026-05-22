@@ -517,6 +517,7 @@ set VimEverywhere
 " https://github.com/magidc/ideavim-anyobject#anysubword-u
 set anyobject
 
+let g:anyobject_included = "anyDocument,anyFunction,anySubword,anyString"
 let g:anyobject_map_anyfunction = "f"
 let g:anyobject_map_anysubword = "v"
 let g:anyobject_map_anyvariable = "u"

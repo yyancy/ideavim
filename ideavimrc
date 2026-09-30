@@ -181,6 +181,8 @@ map [c <Action>(PreviousDiff)
 map ]c <Action>(NextDiff)
 map go <Action>(FileStructurePopup)
 map gO <Action>(GotoSymbol)
+nmap ]] <Action>(GotoNextElementUnderCaretUsage)
+nmap [[ <Action>(GotoPrevElementUnderCaretUsage)
 
 map ml <Action>(ShowBookmarks)
 map mm <Action>(ToggleBookmark)
@@ -282,12 +284,16 @@ nmap [[ <Action>(EditorCodeBlockStart)
 nmap ]] <Action>(EditorCodeBlockEnd)
 map gh <Action>(QuickJavaDoc)
 
+nmap <leader>gD <Action>(Compare.SameVersion)
+
 nmap <leader>gl <Action>(Vcs.UpdateProject)
 nmap <leader>ga <Action>(CheckinProject)
 nmap <leader>gp <Action>(Vcs.Push)
 nmap <leader>gr <Action>(Vcs.RollbackChangedLines)
 nmap <leader>db <Action>(ShowBlankDiffWindow)
 nmap <leader>gq <Action>(EditSource)
+
+nmap <leader>gp <Action>(CopyReferencePopupGroup)
 
 nmap g; <Action>(JumpToLastChange)
 nmap g, <Action>(JumpToNextChange)
@@ -344,8 +350,10 @@ let g:EasyMotion_do_mapping = 0
 " map F <Plug>(easymotion-lineforward)
 " map <A-s> <Plug>(easymotion-bd-fn)
 map <A-a> <Plug>(easymotion-Fn)
-nmap <A-s> <Action>(flash.search)
-xmap <A-s> <Action>(flash.search)
+" nmap <A-s> <Action>(flash.search)
+" xmap <A-s> <Action>(flash.search)
+nmap s <Action>(flash.search)
+xmap s <Action>(flash.search)
 
 
 " nmap f <Plug>(easymotion-lineforward)
@@ -392,8 +400,9 @@ Plug 'vim-scripts/ReplaceWithRegister'
 
 Plug 'vim-commentary'
 " set functiontextobj
-map s gr
-map S gr$
+" map s gr
+" map S gr$
+map S gr
 
 
 " cheatsheet
@@ -471,9 +480,9 @@ nnoremap yw muyiw`u
 nmap yq yiq
 nmap yb yib
 
-nmap sw griw
-nmap sq griq
-nmap sb grib
+nmap Sw griw
+nmap Sq griq
+nmap Sb grib
 
 
 nnoremap <expr> j (v:count <= 1 ? 'j' : "m'" . v:count . 'j')

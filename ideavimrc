@@ -363,10 +363,10 @@ xmap s <Action>(flash.search)
 Plug 'tpope/vim-surround'
 
 " S like sa working in visual mode
-nmap sdf <Action>(Unwrap)
-nmap sa ys
-nmap sc cs
-nmap sd ds
+nmap Sdf <Action>(Unwrap)
+" nmap sa ys
+" nmap sc cs
+" nmap sd ds
 
 
 Plug 'terryma/vim-multiple-cursors'
